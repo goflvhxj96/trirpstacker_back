@@ -1,0 +1,253 @@
+.header-nav {
+  margin-left: 3%;
+  margin-right: 5%;
+  line-height: 50px;
+}
+
+/* =============================== Main ============================= */
+
+section {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+/* =============================== 검색창 ============================= */
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 12%;
+  z-index: 2;
+
+  > div > a > img {
+    width: min(30vw, 400px);
+  }
+
+  #searchBox {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 5px 5px 8px 1px rgb(228, 228, 228);
+    border-radius: 25px;
+    width: min(50vw, 600px);
+    height: min(8vh, min(5vw, 60px));
+    margin-top: -15px;
+
+    > img {
+      width: auto;
+      height: 80%;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    > input {
+      border: 0;
+      width: 80%;
+      height: 80%;
+    }
+
+    > input:focus {
+      outline: none;
+    }
+  }
+}
+
+/* =============================== 이미지 그리드 ============================= */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-auto-rows: 150px;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "a a a b b c c d d"
+    "a a a b b c c d d"
+    "f f f b b e e h h"
+    "f f f g g g i i i"
+    "f f f g g g i i i";
+
+  width: 80%;
+  margin: auto;
+  padding-top: 30%;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 2px 3px 5px 2px rgb(211, 211, 211);
+    border-radius: 10px;
+    opacity: 0.2;
+    transition: all 1s;
+  }
+
+  > img:hover {
+    width: 110%;
+    height: 110%;
+    box-shadow: 2px 2px 5px 3px rgba(255, 255, 255, 0.7),
+      -2px -2px 5px 3px rgba(34, 34, 34, 0.7);
+    z-index: 1;
+  }
+
+  #img1 {
+    grid-area: a;
+  }
+  #img2 {
+    grid-area: b;
+  }
+  #img3 {
+    grid-area: c;
+  }
+  #img4 {
+    grid-area: d;
+  }
+  #img5 {
+    grid-area: e;
+  }
+  #img6 {
+    grid-area: i;
+  }
+  #img7 {
+    grid-area: g;
+  }
+  #img8 {
+    grid-area: h;
+  }
+  #img9 {
+    grid-area: f;
+  }
+}
+
+/* =============================== 인기 여행 블록 ============================= */
+
+.plan {
+  width: 80%;
+  margin: auto;
+  padding-top: 10%;
+  opacity: 0;
+  transition: all 0.5s;
+
+  /* 스크롤바 숨기기 */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  > ul {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    margin: 15px;
+    padding: 0 20px;
+
+    > li {
+      text-align: center;
+      border: 1px solid rgb(212, 212, 212);
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 3px 3px 5px 2px rgb(223, 223, 223);
+      margin: 5px 10px 10px 5px;
+      padding: 5px;
+      display: inline-block;
+      cursor: pointer;
+
+      > img {
+        width: 25vw;
+        min-width: 180px;
+        max-width: 300px;
+        height: 20vh;
+        min-height: 140px;
+        max-height: 260px;
+      }
+
+      > table {
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        font-size: 0.8rem;
+      }
+
+      > table td:nth-child(1) {
+        text-align: start;
+      }
+
+      > table td:nth-child(2) {
+        text-align: end;
+      }
+
+      > table img {
+        width: 12%;
+      }
+    }
+
+    > li:hover {
+      background-color: rgb(240, 239, 239);
+    }
+  }
+}
+
+/* =============================== 인기 게시글 ============================= */
+
+.board {
+  width: 80%;
+  margin: auto;
+  padding-top: 10%;
+  opacity: 0;
+  transition: all 0.5s;
+  cursor: pointer;
+
+  > ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px;
+
+    > li {
+      text-align: center;
+      border: 1px solid rgb(212, 212, 212);
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 3px 3px 5px 2px rgb(223, 223, 223);
+      margin: 5px 10px 10px 5px;
+      padding: 5px;
+      display: inline-block;
+
+      > img {
+        width: 25vw;
+        min-width: 180px;
+        max-width: 280px;
+        height: 20vh;
+        min-height: 140px;
+        max-height: 260px;
+      }
+
+      > table {
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+        font-size: 0.8rem;
+      }
+
+      > table td:nth-child(1) {
+        text-align: start;
+      }
+
+      > table td:nth-child(2) {
+        text-align: end;
+      }
+
+      > table img {
+        width: 12%;
+      }
+    }
+
+    > li:hover {
+      background-color: rgb(240, 239, 239);
+    }
+  }
+}
