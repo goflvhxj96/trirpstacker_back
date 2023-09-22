@@ -220,33 +220,6 @@ body {
   }
 }
 
-.join-id {
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	
-	> input {
-		margin-right: 3px;
-	}
-}
-
-#signup-id {
-	width: 85%
-}
-
-#dup-check {
-  background-color: var(--blue);
-  background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 60%);
-  border-radius: 15px;
-  border: 0px solid var(--blue);
-  color: var(--white);
-  cursor: pointer;
-  width: 35%;
-  height: 70%;
-  margin: auto;
-  margin-left: 4px;
-  padding: 0 5px;
-}
 
 @keyframes show {
   0%,

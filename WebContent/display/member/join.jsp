@@ -21,11 +21,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="container__form container--signup">
           <form action="#" class="form" id="form1">
             <h2 class="form__title">회원가입</h2>
-            <div class="join-id">
             <input type="text" id="signup-id" placeholder="아이디" class="input" />
-            <button id="dup-check">중복확인</button>
-            </div>
-            <input type="text" placeholder="별명" class="input" />
+            <div id="id-dup-check" class="dup-check"></div>
+            <input type="text" id="nickname" placeholder="닉네임" class="input" />
+            <div id="nick-dup-check" class="dup-check"></div>
             <input type="email" placeholder="이메일" class="input" />
             <input type="password" placeholder="비밀번호" class="input" />
             <input type="password" placeholder="비밀번호 확인" class="input" />
@@ -37,14 +36,14 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="container__form container--signin">
           <form action="#" class="form" id="form2">
             <h2 class="form__title">로그인</h2>
-            <input type="email" placeholder="이메일" class="input" />
+            <input type="text" placeholder="아이디" class="input" />
             <input type="password" placeholder="비밀번호" class="input" />
             <div class="link" id="id-record"><span>아이디 저장</span><input type="checkbox" /></div>
             <a href="#" class="link">비밀번호 찾기</a>
             <button class="btn">로그인</button>
           </form>
         </div>
-
+ 
         <!-- Overlay -->
         <div class="container__overlay">
           <div class="overlay">
@@ -60,6 +59,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     </main>
     <!-- 풋터 -->
     <%@ include file="/display/common/footer.jsp" %>
-    <script src="${root}/js/login.js"></script>
+    <script>var root = ${root}</script>
+    <script src="${root}/js/join2.js"></script>
   </body>
 </html>
