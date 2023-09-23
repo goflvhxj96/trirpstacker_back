@@ -34,3 +34,7 @@
 		</div>
 	</nav>
 </header>
+
+<script>
+const root = "${ root }";
+</script>

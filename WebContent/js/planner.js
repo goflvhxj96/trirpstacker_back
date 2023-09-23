@@ -12,8 +12,6 @@
 
 
 
-
-
 /**
  * 지도 관련 함수
  */
@@ -42,28 +40,26 @@ function drawMap(x, y, lev) {
 
 // 지도 중심 좌표 이동 및 마커 생성
 function moveMapCenter(cnt) {
+	// 마커 지워주기
+    markers.forEach(m => {
+        m.setMap(null);
+    });
     
     // 이동할 위도 경도 위치 생성
     let x = locations[cnt].mapx;
     let y = locations[cnt].mapy;
     
-    if (x == curX && y == curY) {
-        return;
-    }
-    
     var latLng = new kakao.maps.LatLng(y, x);
     
+    // 레벨 변경
+    map.setLevel(3);
+
     // 위치 이동
     map.panTo(latLng);
     curX = x;
     curY = y;
     
-    // 레벨 변경
-    map.setLevel(1);
-    
     // 마커 생성
-    
-    
     let marker = new kakao.maps.Marker({
         position: latLng
     });
@@ -78,19 +74,20 @@ function moveMapCenter(cnt) {
 // 지도 이동 함수
 function moveMap(x, y, lev) {
     var latLng = new kakao.maps.LatLng(y, x);
+    
+    // 맵 레벨 변경
+    map.setLevel(lev);
 
     // 위치 이동
     map.panTo(latLng);
     curX = x;
     curY = y;
-
-    map.setLevel(lev);
 }
 
 // 마커 생성 함수
 function makeMarker(x, y, type) {
     let latLng = new kakao.maps.LatLng(y, x);
-    let img = `../assets/marker/marker${type}.png`;
+    let img = `${root}/assets/marker/marker${type}.png`;
     let size = new kakao.maps.Size(30, 30);
     let markerImage = new kakao.maps.MarkerImage(img, size);
 
@@ -127,8 +124,8 @@ function LocationInfo(addr1, areacode, cotentid, cotenttypeid, firstimage, mapx,
 let locations = [];
 
 // 공공데이터 가져오기
-const base = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1";
-const serviceKey = "NYi8pVbtWFuARtVe2wCP7BkiQ5Rhmc0wd3AKE5UanrA5d%2F3m%2BCWTbF5Ur9NFxR%2BBL5hAZFbnREL2bd8X5pj6sA%3D%3D"; 
+//const base = "https://apis.data.go.kr/B551011/KorService1/areaBasedList1";
+//const serviceKey = "NYi8pVbtWFuARtVe2wCP7BkiQ5Rhmc0wd3AKE5UanrA5d%2F3m%2BCWTbF5Ur9NFxR%2BBL5hAZFbnREL2bd8X5pj6sA%3D%3D"; 
 
 async function getSearchData() {
     // 마커 지워주기
@@ -141,31 +138,35 @@ async function getSearchData() {
     const keyword = document.querySelector("#search").value;
     const sido = document.querySelector("#sidoSelect");
     const areaCode = sido.options[sido.selectedIndex].value;
-    const gungu = document.querySelector("#gugunSelect")
-    const sigunguCode = gungu.options[gungu.selectedIndex].value;
+    const gugun = document.querySelector("#gugunSelect")
+    const sigugunCode = gugun.options[gugun.selectedIndex].value;
     const types = document.querySelectorAll("input[name='type']:checked");
 
-    if (keyword.length == 0 && areaCode.length == 0 && sigunguCode == 0 && types.length == 0) {
+    if (keyword.length == 0 && areaCode.length == 0 && sigugunCode == 0 && types.length == 0) {
         alert("검색 조건을 입력해주세요.");
         return;
     }
-
-    let res = [];
-    if (types.length > 0) {
-        for (i = 0; i < types.length; i++) {
-            const typeId = parseInt(types[i].value);
-            const url = `${base}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentTypeId=${typeId}&areaCode=${areaCode}&sigunguCode=${sigunguCode}`;
-            res = res.concat(await getPublicData(url));
-        }
-    } else {
-        const url = `${base}?serviceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&_type=json&contentTypeId=&areaCode=${areaCode}&sigunguCode=${sigunguCode}`;
-        res = await getPublicData(url);
+    
+    let url = root + "/attraction?action=search";
+    if (keyword.length != 0) {
+    	url += "&keyword=" + keyword;
+    }
+    if (areaCode.length != 0) {
+    	url += "&sido=" + areaCode;    	
+    }
+    if (sigugunCode.length != 0) {
+    	url += "&gugun=" + sigugunCode;
+    }
+    if (types.length != 0) {
+    	url += "&type=" + types[0].value;
+    	for (let i = 1; i < types.length; i++) {
+    		url += "," + types[i].value;
+    	}
     }
     
-    locations = res;
-    if (keyword.length > 0)
-        locations = locations.filter(o => o.title.includes(keyword));
-
+    // DB에서 조회하기
+    locations = await getPublicData(url);
+    
     // html에 리스트 그리기
     makeLocationList();
 
@@ -181,7 +182,7 @@ async function getSearchData() {
         markers = tmp;
 
         // 지도 이동
-        moveMap(locations[0].mapx, locations[0].mapy, 10);
+        moveMap(locations[0].mapx, locations[0].mapy, 8);
     }
 }
 
@@ -191,13 +192,13 @@ async function getPublicData(url) {
     await fetch(url)
     .then(res => res.json())
     .then(r => {
-        r.response.body.items.item.forEach(o => {
+        r.result.forEach(o => {
             addr = o.addr1;
             if (o.addr2 != "") {
                 addr += " " + o.addr2;
             }
-            img = o.firstimage != "" ? o.firstimage : "../assets/noImg.png";
-            arr.push(new LocationInfo(addr, o.areacode, o.contentid, o.contenttypeid, img, o.mapx, o.mapy, o.sigungucode, o.title, o.tel));
+            img = o.firstImage != "" ? o.firstImage : root + "/assets/noImg.png";
+            arr.push(new LocationInfo(addr, o.sidoCode, o.contentId, o.contentTypeId, img, o.longitude, o.latitude, o.gugunCode, o.title, o.tel));
         });
     });
     return arr;
@@ -244,9 +245,9 @@ function makeLocationList() {
                 >🔹${o.title}</span
             >
             <span class="address">🔹${o.addr}</span>
-            <img src="../assets/star.png" alt="관심" class="like" />
+            <img src="${root}/assets/star.png" alt="관심" class="like" />
             <img
-                src="../assets/add.png"
+                src="${root}/assets/add.png"
                 alt="일정추가"
                 class="add-to-plan"
                 onclick="addDayPlanList(${cnt++})"
@@ -269,7 +270,7 @@ function addDay() {
         <summary>
           📜 ${dayCnt}일차
           <img
-            src="../assets/cancel.png"
+            src="${root}/assets/cancel.png"
             alt="지우기"
             class="day-cancel-img"
             onclick="deleteDay('day${dayCnt}')"
@@ -316,7 +317,7 @@ function addDayPlanList(idx) {
           <input type="time" class="end-time" />
         </span>
         <img
-          src="../assets/cancel.png"
+          src="${root}/assets/cancel.png"
           alt="지우기"
           class="loca-cancel-img"
           onclick="deleteLocation('${curDay}loca${lis.length}')"
