@@ -1,92 +1,69 @@
-# EnjoyTrip_Backend_서울_10반_이성은_전소민
+# EnjoyTrip*Front*서울*10반*이성은\_전소민
 
+# DB 연결결
 
+# Trip Stacker
 
-## Getting started
+- ‘여행 기록을 블록처럼 쌓아나간다’라는 의미로 Trip Stacker라 이름지었습니다.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 메인 화면
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- 첫 화면에 로고와 검색창을 크게 보여주어 구글과 같은 만능 검색엔진의 기능을 보여줍니다.
 
-## Add your files
+![메인화면](/uploads/e5360f8b294e34ec48934be819dfdfc5/메인화면.png)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- 화면을 그리드로 다채롭게 구성하고 각 그리드에 마우스를 오버하면 떠오르는 애니메이션 효과를 주어 눈을 사로잡는 즐거운 사용자 경험을 주었습니다.
 
-```
-cd existing_repo
-git remote add origin https://lab.ssafy.com/gkapf838/enjoytrip_backend_seoul10_team4.git
-git branch -M master
-git push -uf origin master
-```
+![메인화면2](/uploads/d716544277e79ab4421a4c7b7b19f67f/메인화면2.png)
 
-## Integrate with your tools
+- 인기 여행 플랜을 계속 회전시키며 보여주고 있습니다.
+- 인기 게시글은 고정적으로 보여주고 있습니다.
 
-- [ ] [Set up project integrations](https://lab.ssafy.com/gkapf838/enjoytrip_backend_seoul10_team4/-/settings/integrations)
+![메인화면3](/uploads/7ade8d2167fe09ce36000c98e49b1849/메인화면3.png)
 
-## Collaborate with your team
+## 로그인
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+- 회원가입시 빈칸 확인, 이메일 포맷 확인, 비밀번호와 비밀번호 확인 일치여부를 검사합니다.
 
-## Test and Deploy
+![로그인js](/uploads/7d886934011f763af43f34ad64f04eb9/로그인js.png)
 
-Use the built-in continuous integration in GitLab.
+- 로그인에 성공하면 메인페이지로 돌아옵니다.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+![로그인js2](/uploads/27f1bb059591dd113d7b1aa29dc4e90c/로그인js2.png)
 
-***
+## 마이페이지
 
-# Editing this README
+- 마이페이지에서는 본인이 작성한 여행 블록, 게시글 등을 조회할 수 있고, 회원정보를 변경할 수 있습니다.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+![마이페이지1](/uploads/d84946bc8f9446b85411ccfa7910ec5c/마이페이지1.png)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- 반응형으로 제작하여 윈도우 창의 가로 폭이 줄어들면 그에 맞게 화면이 조절됩니다.
 
-## Name
-Choose a self-explaining name for your project.
+![마이페이지2](/uploads/8c0d20c459b6c76b4177f5af50ecb9d1/마이페이지2.png)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- 회원정보 변경이 가능합니다.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+![회원정보_변경](/uploads/83ee40503b623bcdc6da43b9be6a32ca/회원정보_변경.png)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 나의 핫플 등록
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+- kakao map api와 GPS 정보가 담겨있는 사진의 메타데이터를 이용하여 지도와 사진이 한눈에 보이는 글을 작성할 수 있습니다.
+- 글 작성화면 접속시 지도의 초기위치는 서버의 접속위치를 받아와 띄웁니다.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+![나의핫플1](/uploads/3c6b0c5e90df6de342fef336c4800ae0/나의핫플1.png)
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+- 사진을 등록하면 사진파일의 메타데이터에서 위도, 경도를 읽어와 지도의 해당 위치에 마커를 표시합니다.
+- 글 작성 후 사진, 위치정보와 함께 글이 저장됩니다.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+![나의핫플2](/uploads/032386259c309debb45f82caddbb414a/나의핫플2.png)
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## 플래너
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- 검색하면 공공데이터를 불러와 리스트로 보여줍니다.
+    - 공공데이터의 경우 DB에 저장해둔 데이터를 가져와 조회합니다.
+- 지역 검색 시 해당 지역에 있는 장소들을 마커로 표시합니다.
+- 장소 클릭시 해당 위치로 이동해 마커로 표시합니다.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+![마커](/uploads/89a777a296009b26181d2fffcb4c597f/마커.png)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+![마커하나](/uploads/b8ce1d6f5ef0da9c9f1627ce5b56cad7/마커하나.png)
