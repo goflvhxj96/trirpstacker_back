@@ -1,5 +1,11 @@
 package com.ssafy.member.dao;
 
-public interface MemberDao {
+import java.sql.SQLException;
 
+import com.ssafy.member.dto.MemberDto;
+
+public interface MemberDao {
+	int idCheck(String userId) throws SQLException;
+	int joinMember(MemberDto memberDto) throws SQLException;
+	MemberDto loginMember(String userId, String userPwd) throws SQLException;
 }

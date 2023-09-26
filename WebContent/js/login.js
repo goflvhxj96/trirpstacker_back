@@ -1,6 +1,6 @@
 const signInBtn = document.getElementById("signIn");
 const signUpBtn = document.getElementById("signUp");
-const fistForm = document.getElementById("form1");
+const firstForm = document.getElementById("form1");
 const secondForm = document.getElementById("form2");
 const container = document.querySelector(".container");
 
@@ -13,15 +13,21 @@ signUpBtn.addEventListener("click", () => {
 });
 
 // 회원가입 프로세스
-fistForm.addEventListener("submit", (e) => {
+firstForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // 빈칸 확인
-  let name = fistForm[0].value;
-  let email = fistForm[1].value;
-  let password = fistForm[2].value;
-  let passwordcheck = fistForm[3].value;
-  if (name == "") { 
-    alert("이름을 입력해주세요.");
+  let id = firstForm[0].value;
+  let nickname = firstForm[1].value;
+  let email = firstForm[2].value;
+  let password = firstForm[3].value;
+  let passwordcheck = firstForm[4].value;
+  
+  if (id == "") { 
+    alert("아이디를 입력해주세요.");
+    return;
+  }
+  if (nickname == "") { 
+    alert("닉네임을 입력해주세요.");
     return;
   }
   if (email == "") { 
@@ -51,20 +57,71 @@ fistForm.addEventListener("submit", (e) => {
 
 });
 
+// 아이디 중복체크
+let isUseId = false;
+let input = document.querySelector("#signup-id");
+let resultDiv = document.querySelector("#id-dup-check");
+input.addEventListener("keyup", function () {
+  let checkid = input.value;
+  let len = checkid.length;
+  if (len < 4 || len > 16) {
+    isUseId = false;
+    resultDiv.style.color = "red";
+    resultDiv.innerHTML = "아이디는 4자 이상 16자 이하입니다."
+  } else { 
+    let url = root + "/user?action=idcheck&checkid=" + checkid;
+    fetch(url)
+    .then((response) => response.text())
+    .then((data) => resultViewText(data));
+  }
+});
+function resultViewText(data) {
+    let val = data.split(",");
+    let id = val[0];
+    let cnt = val[1];
+    if (cnt == 0) {
+      isUseId = true;
+      resultDiv.setAttribute("class", "mb-3 text-success");
+      resultDiv.innerHTML = "<span class='fw-bold'>" + id + "</span>은 사용할 수 있습니다.";
+    } else {
+      isUseId = false;
+      resultDiv.setAttribute("class", "mb-3 text-danger");
+      resultDiv.innerHTML = "<span class='fw-bold'>" + id + "</span>은 사용할 수 없습니다.";
+    }
+  }
+
+
+// 닉네임 중복체크
+
+
+
 // 로그인 프로세스
 secondForm.addEventListener("submit", (e) => {
   e.preventDefault()
-  let email = secondForm[0].value;
-  let password = secondForm[1].value;
-  if (email === "ssafy@gmail.com" && password === "1234") { 
-    alert("로그인 됐습니다.");
-    // 히스토리가 있는 경우 뒤로가기
-    if (document.referrer && document.referrer.indexOf("yoursite.com") !== -1) {
-      history.back();
+  
+  if(!secondForm[0].value){
+	  alert("아이디 입력!!");
+	  return;
+  } else if(!secondForm[1].value){
+	  alert("비밀번호 입력!!");
+	  return;
+  } else {
+	  let form = document.querySelector("#form2");
+	  form.setAttribute("action", "root/user");
+	  form.submit();
   }
-  // 히스토리가 없는 경우 (URL을 직접 입력하여 유입된 경우)
-  else {
-      location.href = "main.html";    // 메인페이지로 
-  }
-  }
+  
+//  let email = secondForm[0].value;
+//  let password = secondForm[1].value;
+//  if (email === "ssafy@gmail.com" && password === "1234") { 
+//    alert("로그인 됐습니다.");
+//    // 히스토리가 있는 경우 뒤로가기
+//    if (document.referrer && document.referrer.indexOf("yoursite.com") !== -1) {
+//      history.back();
+//    }
+//  // 히스토리가 없는 경우 (URL을 직접 입력하여 유입된 경우)
+//    else {
+//      location.href = "main.html";    // 메인페이지로
+//    }
+//  }
 });
