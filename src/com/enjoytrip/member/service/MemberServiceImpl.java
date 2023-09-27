@@ -1,8 +1,8 @@
-package com.ssafy.member.service;
+package com.enjoytrip.member.service;
 
-import com.ssafy.member.dao.MemberDao;
-import com.ssafy.member.dao.MemberDaoImpl;
-import com.ssafy.member.dto.MemberDto;
+import com.enjoytrip.member.dao.MemberDao;
+import com.enjoytrip.member.dao.MemberDaoImpl;
+import com.enjoytrip.member.dto.MemberDto;
 
 public class MemberServiceImpl implements MemberService {
 	

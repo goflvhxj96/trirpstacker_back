@@ -1,4 +1,4 @@
-package com.ssafy.member.controller;
+package com.enjoytrip.member.controller;
 
 import java.io.IOException;
 
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ssafy.member.dto.MemberDto;
-import com.ssafy.member.service.MemberService;
-import com.ssafy.member.service.MemberServiceImpl;
+import com.enjoytrip.member.dto.MemberDto;
+import com.enjoytrip.member.service.MemberService;
+import com.enjoytrip.member.service.MemberServiceImpl;
 
 @WebServlet("/user")
 public class MemberController extends HttpServlet {
@@ -29,10 +29,7 @@ public class MemberController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		String path = "";
-		if("mvjoin".equals(action)) {
-			path = "/user/join.jsp";
-			redirect(request, response, path);
-		} else if("idcheck".equals(action)) {
+		if("idcheck".equals(action)) {
 			String checkid = request.getParameter("checkid");
 			System.out.println("checkid >>>>> " + checkid);
 			int cnt = 1;
@@ -46,9 +43,6 @@ public class MemberController extends HttpServlet {
 			response.getWriter().print(checkid + "," + cnt);
 		} else if("join".equals(action)) {
 			path = join(request, response);
-			redirect(request, response, path);
-		} else if("mvlogin".equals(action)) {
-			path = "/user/login.jsp";
 			redirect(request, response, path);
 		} else if("login".equals(action)) {
 			path = login(request, response);
@@ -97,6 +91,7 @@ public class MemberController extends HttpServlet {
 		memberDto.setMemberPwd(request.getParameter("password"));
 		memberDto.setNickname(request.getParameter("nickname"));
 		memberDto.setEmail(request.getParameter("email"));
+		System.out.println(memberDto.toString());
 		try {
 			memberService.joinMember(memberDto);
 			return "/index.jsp";
@@ -108,7 +103,7 @@ public class MemberController extends HttpServlet {
 	}
 	
 	private String login(HttpServletRequest request, HttpServletResponse response) {
-		String userId = request.getParameter("signup-id");
+		String userId = request.getParameter("user-id");
 		String userPwd = request.getParameter("password");
 		try {
 			MemberDto memberDto = memberService.loginMember(userId, userPwd);
@@ -119,7 +114,7 @@ public class MemberController extends HttpServlet {
 				
 //				cookie 설정
 				String idsave = request.getParameter("saveid");
-				if("ok".equals(idsave)) { //아이디 저장을 체크 했다면.
+				if("on".equals(idsave)) { //아이디 저장을 체크 했다면.
 					Cookie cookie = new Cookie("ssafy_id", userId);
 					cookie.setPath(request.getContextPath());
 //					크롬의 경우 400일이 최대
@@ -138,10 +133,10 @@ public class MemberController extends HttpServlet {
 						}
 					}
 				}
-				return "/index.jsp";
+				return "/display/index.jsp";
 			} else {
-				request.setAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요.");
-				return "/user/login.jsp";
+				request.setAttribute("msg", "아이디 또는 비밀번호 확인 후</br> 다시 로그인하세요.");
+				return "/display/member/login.jsp";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,7 +148,7 @@ public class MemberController extends HttpServlet {
 	private String logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "";
+		return "/display/index.jsp";
 	}
 
 }

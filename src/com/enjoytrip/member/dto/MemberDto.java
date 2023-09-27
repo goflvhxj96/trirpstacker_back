@@ -1,4 +1,4 @@
-package com.ssafy.member.dto;
+package com.enjoytrip.member.dto;
 
 public class MemberDto {
 	private String memberId;

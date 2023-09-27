@@ -1,12 +1,12 @@
-package com.ssafy.member.dao;
+package com.enjoytrip.member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.enjoytrip.member.dto.MemberDto;
 import com.enjoytrip.util.DBUtil;
-import com.ssafy.member.dto.MemberDto;
 
 public class MemberDaoImpl implements MemberDao {
 	private static MemberDao memberDao = new MemberDaoImpl();
@@ -51,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder sql = new StringBuilder();
-			sql.append("insert into members (member_id, member_pwd, nickname, email) \n");
+			sql.append("insert into members (member_id, member_pwd, nickname, email, join_date) \n");
 			sql.append("values (?, ?, ?, ?, now())");
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, memberDto.getMemberId());
@@ -74,14 +74,15 @@ public class MemberDaoImpl implements MemberDao {
 		try {
 			conn = dbUtil.getConnection();
 			StringBuilder loginMember = new StringBuilder();
-			loginMember.append("select member_id \n");
+			loginMember.append("select member_id, nickname \n");
 			loginMember.append("from members \n");
 			loginMember.append("where member_id = ? and member_pwd = ? \n");
 			pstmt = conn.prepareStatement(loginMember.toString());
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
+			System.out.println(pstmt.toString());
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				memberDto = new MemberDto();
 				memberDto.setMemberId(rs.getString("member_id"));
 				memberDto.setNickname(rs.getString("nickname"));

@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
 prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}" />
+<%
+String root = request.getContextPath();
+Cookie[] cookies = request.getCookies();
+String msg = (String) request.getAttribute("msg");
+String user_id = "";
+if(cookies!=null){
+	for(Cookie cookie : cookies){
+		if("ssafy_id".equals(cookie.getName())){
+			user_id = cookie.getValue();
+			break;
+		}
+	}
+}
+%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -19,14 +33,15 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="container right-panel-active">
         <!-- 회원가입 -->
         <div class="container__form container--signup">
-          <form action="#" class="form" id="form1">
+          <form action="<%=root %>/user" class="form" id="form1" value="POST">
+          <input type="hidden" name="action" value="join"/>
             <h2 class="form__title">회원가입</h2>
-            <input type="text" id="signup-id" placeholder="아이디" class="input" />
+            <input type="text" id="signup-id" name="signup-id" placeholder="아이디" class="input" />
             <div id="id-dup-check" class="dup-check"></div>
-            <input type="text" id="nickname" placeholder="닉네임" class="input" />
+            <input type="text" id="nickname" name="nickname" placeholder="닉네임" class="input" />
             <div id="nick-dup-check" class="dup-check"></div>
-            <input type="email" placeholder="이메일" class="input" />
-            <input type="password" placeholder="비밀번호" class="input" />
+            <input type="email" name="email" placeholder="이메일" class="input" />
+            <input type="password" name="password" placeholder="비밀번호" class="input" />
             <input type="password" placeholder="비밀번호 확인" class="input" />
             <button class="btn">회원가입</button>
           </form>
@@ -34,11 +49,21 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <!-- 로그인 -->
         <div class="container__form container--signin">
-          <form action="#" class="form" id="form2">
+          <form action="<%=root %>/user" class="form" id="form2" method="POST">
+          <input type="hidden" name="action" value="login"/>
             <h2 class="form__title">로그인</h2>
-            <input type="text" placeholder="아이디" class="input" />
-            <input type="password" placeholder="비밀번호" class="input" />
-            <div class="link" id="id-record"><span>아이디 저장</span><input type="checkbox" /></div>
+            <% if(msg != null){ %>
+            <div style="color:red"><%= msg %></div>
+            <% } %>
+            <% if("".equals(user_id)) { %>
+            <input type="text" placeholder="아이디" name="user-id" class="input" />
+            <input type="password" placeholder="비밀번호" name="password" class="input" />
+            <div class="link" id="id-record"><span>아이디 저장</span><input type="checkbox" name="saveid"/></div>
+            <% } else {%>
+            <input type="text" placeholder="아이디" name="user-id" class="input" value="<%=user_id%>"/>
+            <input type="password" placeholder="비밀번호" name="password" class="input" />
+            <div class="link" id="id-record"><span>아이디 저장</span><input type="checkbox" name="saveid" checked/></div>
+            <% } %>
             <a href="#" class="link">비밀번호 찾기</a>
             <button class="btn">로그인</button>
           </form>
@@ -59,7 +84,8 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     </main>
     <!-- 풋터 -->
     <%@ include file="/display/common/footer.jsp" %>
-    <script>var root = ${root}</script>
-    <script src="${root}/js/join2.js"></script>
+    <script>var root = '${root}'
+    console.log(root)</script>
+    <script src="${root}/js/login2.js"></script>
   </body>
 </html>

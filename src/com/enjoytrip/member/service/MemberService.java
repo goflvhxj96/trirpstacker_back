@@ -1,6 +1,6 @@
-package com.ssafy.member.service;
+package com.enjoytrip.member.service;
 
-import com.ssafy.member.dto.MemberDto;
+import com.enjoytrip.member.dto.MemberDto;
 
 public interface MemberService {
 	int idCheck(String userId) throws Exception;

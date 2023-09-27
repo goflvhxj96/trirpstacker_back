@@ -1,8 +1,8 @@
-package com.ssafy.member.dao;
+package com.enjoytrip.member.dao;
 
 import java.sql.SQLException;
 
-import com.ssafy.member.dto.MemberDto;
+import com.enjoytrip.member.dto.MemberDto;
 
 public interface MemberDao {
 	int idCheck(String userId) throws SQLException;

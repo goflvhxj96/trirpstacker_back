@@ -116,7 +116,7 @@ footer {
 /* =============================== 로그인 / 로그아웃 ============================= */
 
 .login-mode {
-  display: none;
+  /* display: none; */
 }
 
 .logout-mode {
